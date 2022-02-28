@@ -7,9 +7,9 @@ dynamic equations.
 
 ![Pendulum Coordinate System](./diagrams/pendulum.png)
 
--  $$ x-y $$: cartesian coordinates of the pendulum's end in meters.
-- $\theta$ : angle in radians.
-- \tau: torque in `N m`. Defined as positive _counter-clockwise_.
+-  `x-y`: cartesian coordinates of the pendulum's end in meters.
+- `theta` : angle in radians.
+- `tau`: torque in `N m`. Defined as positive _counter-clockwise_.
 
 ### Action Space
 
@@ -35,16 +35,16 @@ The observation is a `ndarray` with shape `(3,)` representing the x-y coordinate
 The reward function is defined as:
 
 
-$$r = -(\theta <sup>2</sup> + 0.1\dot \theta<sup>2</sup> + 0.001*torque<sup>2</sup>)$$
+`r = -(theta<sup>2</sup> + 0.1theta_dt<sup>2</sup> + 0.001*torque<sup>2</sup>)`
 
 
-where `$\theta$` is the pendulum's angle normalized between $[-\pi, \pi]$ (with 0 being in the upright position).
+where `$\theta$` is the pendulum's angle normalized between `[-pi, pi]` (with 0 being in the upright position).
 Based on the above equation, the minimum reward that can be obtained is *-(pi<sup>2</sup> + 0.1\*8<sup>2</sup> + 0.001\*2<sup>2</sup>) = -16.2736044*, while the maximum reward is zero (pendulum is
 upright with zero velocity and no torque applied).
 
 ### Starting State
 
-The starting state is a random angle in `[-\pi, \pi]` and a random angular velocity in `[-1,1]`.
+The starting state is a random angle in `[-pi, pi]` and a random angular velocity in `[-1,1]`.
 
 ### Episode Termination
 
