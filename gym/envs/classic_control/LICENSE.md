@@ -8,7 +8,7 @@ dynamic equations.
 ![Pendulum Coordinate System](./diagrams/pendulum.png)
 
 -  $$ x-y $$: cartesian coordinates of the pendulum's end in meters.
-- \theta : angle in radians.
+- $\theta$ : angle in radians.
 - \tau: torque in `N m`. Defined as positive _counter-clockwise_.
 
 ### Action Space
@@ -22,7 +22,7 @@ The action is a `ndarray` with shape `(1,)` representing the torque applied to f
 
 ### Observation Space
 
-The obseervation is a `ndarray` with shape `(3,)` representing the x-y coordinates of the pendulum's free end and its angular velocity.
+The observation is a `ndarray` with shape `(3,)` representing the x-y coordinates of the pendulum's free end and its angular velocity.
 
 | Num | Observation      | Min  | Max |
 |-----|------------------|------|-----|
