@@ -8,13 +8,13 @@ accelerate the car to reach the goal state on top of the right hill. There are t
 of the mountain car domain in gym: one with discrete actions and one with continuous.
 This version is the one with discrete actions.
 
-This MDP first appeared in [Andrew Moore's PhD Thesis (1990)]("")
+This MDP first appeared in [Andrew Moore's PhD Thesis (1990)]("https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-209.pdf")
 
 ```
 @TECHREPORT{Moore90efficientmemory-based,
     author = {Andrew William Moore},
     title = {Efficient Memory-based Learning for Robot Control},
-    institution = {},
+    institution = {University of Cambridge},
     year = {1990}
 }
 ```
@@ -46,6 +46,7 @@ There are 3 discrete deterministic actions:
 Given an action, the mountain car follows the following transition dynamics:
 
 *velocity<sub>t+1</sub> = velocity<sub>t</sub> + (action - 1)\* force - cos(3\*position<sub>t</sub>)\*gravity*
+
 *position<sub>t+1</sub> = position<sub>t</sub> + velocity<sub>t+1</sub>*
 
 where force = 0.001 and gravity = 0.0025. The collisions at either end are inelastic with the velocity set to 0 upon collision with the wall. The position is clipped to the range `[-1.2, 0.6]` and velocity is clipped to the range `[-0.07, 0.07]`.
@@ -91,13 +92,13 @@ accelerate the car to reach the goal state on top of the right hill. There are t
 of the mountain car domain in gym: one with discrete actions and one with continuous.
 This version is the one with continuous actions.
 
-This MDP first appeared in [Andrew Moore's PhD Thesis (1990)]("")
+This MDP first appeared in [Andrew Moore's PhD Thesis (1990)]("https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-209.pdf")
 
 ```
 @TECHREPORT{Moore90efficientmemory-based,
     author = {Andrew William Moore},
     title = {Efficient Memory-based Learning for Robot Control},
-    institution = {},
+    institution = {University of Cambridge},
     year = {1990}
 }
 ```
@@ -120,7 +121,8 @@ The action is a ndarray` with shape `(1,)`, representing the directional force a
 Given an action, the mountain car follows the following transition dynamics:
 
 *velocity<sub>t+1</sub> = velocity<sub>t+1</sub> + force\*self.power - 0.0025\*cos(3 * position<sub>t</sub>)*
-position<sub>t+1</sub> = position<sub>t</sub> + velocity<sub>t+1</sub>
+
+*position<sub>t+1</sub> = position<sub>t</sub> + velocity<sub>t+1</sub>*
 
 where force is the action clipped to the range `[-1,1]` and power is a constant 0.0015. The collisions at either end are inelastic with the velocity set to 0 upon collision with the wall. The position is clipped to the range [-1.2, 0.6] and velocity is clipped to the range [-0.07, 0.07].
 
