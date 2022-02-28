@@ -2,11 +2,11 @@
 
 The Acrobot environment is based on Sutton's work in ["Generalization in Reinforcement Learning: Successful Examples Using Sparse Coarse Coding"](https://papers.nips.cc/paper/1995/hash/8f1d43620bc6bb580df6e80b0dc05c48-Abstract.html) and [Sutton and Barto's book]("http://www.incompleteideas.net/book/the-book-2nd.html"). The system consists of two links connected linearly to form a chain, with one end of the chain fixed. The joint between the two links is actuated. The goal is to apply torques on the actuated joint to swing the free end of the linear chain above a given height while starting from the initial state of hanging downwards.
 
-As seen in the **Gif**: two blue links connected by two green joints. The joint in between the two pendulum links is actuated. The goal is to swing the end of the outer-link to reach the target height (black horizontal line above system) by applying torque on the actuator..
+As seen in the **Gif**: two blue links connected by two green joints. The joint in between the two links is actuated. The goal is to swing the free end of the outer-link to reach the target height (black horizontal line above system) by applying torque on the actuator.
 
 ### Action Space
 
-The action is discrete deterministic representing the torque applied on the actuated joint between the two links.
+The action is discrete, deterministic, and represents the torque applied on the actuated joint between the two links.
 
 | Num | Action                                             | Unit               |
 |----|-------------------------------------------|---------------|
@@ -27,10 +27,10 @@ The observation is a `ndarray` with shape `(6,)` that provides information about
 | 4   | Angular velocity of `theta1` |        ~ -12.567 (-4 * pi)         |      ~ 12.567 (4 * pi)   |
 | 5   | Angular velocity of `theta2` |        ~ -28.274 (-9 * pi)         |      ~ 28.274 (9 * pi)   |
 
-where,
+where
 - `theta1` is the angle of the first joint, where an angle of 0 indicates the first link is pointing directly
 downwards.
-- `theta2` is *relative to the angle of the first link.* An angle of 0 corresponds to having the same angle between the
+- `theta2` is ***relative to the angle of the first link.*** An angle of 0 corresponds to having the same angle between the
 two links.
 
 The angular velocities of `theta1` and `theta2` are bounded at ±4π, and ±9π rad/s respectively.
@@ -38,7 +38,7 @@ A state of `[1, 0, 1, 0, ..., ...]` indicates that both links are pointing downw
 
 ### Rewards
 
-The goal is to have the free end reach a designated horizontal line on the top in as few steps as possible, and as such a all steps that do not reach the goal incur a reward of -1. Achieving the target height results in termination with a reward of 0. The reward threshold is -100.
+The goal is to have the free end reach a designated target height in as few steps as possible, and as such all steps that do not reach the goal incur a reward of -1. Achieving the target height results in termination with a reward of 0. The reward threshold is -100.
 
 ### Starting State
 
@@ -84,7 +84,7 @@ the [implementation](https://github.com/openai/gym/blob/master/gym/envs/classic_
 
 - v1: Maximum number of steps increased from 200 to 500. The observation space for v0 provided direct readings of
 `theta1` and `theta2` in radians, having a range of `[-pi, pi]`. The v1 observation space as described here provides the
-sin and cosin of each angle instead.
+sine and cosine of each angle instead.
 - v0: Initial versions release (1.0.0) (removed from gym for v1)
 
 ### References
