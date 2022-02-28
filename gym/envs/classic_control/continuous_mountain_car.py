@@ -25,6 +25,8 @@ from gym.utils import seeding
 class Continuous_MountainCarEnv(gym.Env):
     """
     
+    ### Description
+    
     The Mountain Car MDP is a deterministic MDP that consists of a car placed stochastically
     at the bottom of a sinusoidal valley, with the only possible actions being the accelerations
     that can be applied to the car in either direction. The goal of the MDP is to strategically

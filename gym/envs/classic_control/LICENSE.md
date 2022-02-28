@@ -1,67 +1,82 @@
-   ### Description
 
-The inverted pendulum swingup problem is based on the classic problem in control theory. The system consists of a pendulum attached at one end to a fixed point, and the other end being free. The pendulum starts in a random position and the goal is to apply torque on the free end to swing it into an upright position, with its center of gravity right above the fixed point.
+### Description
 
-The diagram below specifies the coordinate system used for the implementation of the pendulum's
-dynamic equations.
+The Mountain Car MDP is a deterministic MDP that consists of a car placed stochastically
+at the bottom of a sinusoidal valley, with the only possible actions being the accelerations
+that can be applied to the car in either direction. The goal of the MDP is to strategically
+accelerate the car to reach the goal state on top of the right hill. There are two versions
+of the mountain car domain in gym: one with discrete actions and one with continuous.
+This version is the one with discrete actions.
 
-![Pendulum Coordinate System](./diagrams/pendulum.png)
+This MDP first appeared in [Andrew Moore's PhD Thesis (1990)]("")
 
--  `x-y`: cartesian coordinates of the pendulum's end in meters.
-- `theta` : angle in radians.
-- `tau`: torque in `N m`. Defined as positive _counter-clockwise_.
-
-### Action Space
-
-The action is a `ndarray` with shape `(1,)` representing the torque applied to free end of the pendulum.
-
-| Num | Action | Min  | Max |
-|-----|--------|------|-----|
-| 0   | Torque | -2.0 | 2.0 |
-
+```
+@TECHREPORT{Moore90efficientmemory-based,
+    author = {Andrew William Moore},
+    title = {Efficient Memory-based Learning for Robot Control},
+    institution = {},
+    year = {1990}
+}
+```
 
 ### Observation Space
 
-The observation is a `ndarray` with shape `(3,)` representing the x-y coordinates of the pendulum's free end and its angular velocity.
+The observation is a `ndarray` with shape `(2,)` where the elements correspond to the following:
 
-| Num | Observation      | Min  | Max |
-|-----|------------------|------|-----|
-| 0   | x = cos(theta)   | -1.0 | 1.0 |
-| 1   | y = sin(angle)   | -1.0 | 1.0 |
-| 2   | Angular Velocity | -8.0 | 8.0 |
+| Num | Observation                                                 | Min                | Max    | Unit |
+|-----|-------------------------------------------------------------|--------------------|--------|------|
+| 0   | position of the car along the x-axis                        | -Inf               | Inf    | position (m) |
+| 1   | velocity of the car                                         | -Inf               | Inf  | position (m) |
 
-### Rewards
+### Action Space
 
-The reward function is defined as:
+There are 3 discrete deterministic actions:
+- 0: Accelerate to the Left
+- 1: Don't accelerate
+- 2: Accelerate to the Right
+
+| Num | Observation                                                 | Value   | Unit |
+|-----|-------------------------------------------------------------|---------|------|
+| 0   | Accelerate to the left                                      | Inf    | position (m) |
+| 1   | Don't accelerate                                            | Inf  | position (m) |
+| 2   | Accelerate to the right                                     | Inf    | position (m) |
+
+### Transition Dynamics:
+
+Given an action, the mountain car follows the following transition dynamics:
+
+*velocity<sub>t+1</sub> = velocity<sub>t</sub> + (action - 1)\* force - cos(3\*position<sub>t</sub>)\*gravity*
+*position<sub>t+1</sub> = position<sub>t</sub> + velocity<sub>t+1</sub>*
+
+where force = 0.001 and gravity = 0.0025. The collisions at either end are inelastic with the velocity set to 0 upon collision with the wall. The position is clipped to the range `[-1.2, 0.6]` and velocity is clipped to the range `[-0.07, 0.07]`.
 
 
-*r = -(theta<sup>2</sup> + 0.1\*theta_dt<sup>2</sup> + 0.001\*torque<sup>2</sup>)H*
+### Reward:
 
-
-where `$\theta$` is the pendulum's angle normalized between *[-pi, pi]* (with 0 being in the upright position).
-Based on the above equation, the minimum reward that can be obtained is *-(pi<sup>2</sup> + 0.1\*8<sup>2</sup> + 0.001\*2<sup>2</sup>) = -16.2736044*, while the maximum reward is zero (pendulum is
-upright with zero velocity and no torque applied).
+The goal is to reach the flag placed on top of the right hill as quickly as possible, as such the agent is penalised with a reward of -1 for each timestep it isn't at the goal and is not penalised (reward = 0) for when it reaches the goal.
 
 ### Starting State
 
-The starting state is a random angle in *[-pi, pi]* and a random angular velocity in *[-1,1]*.
+The position of the car is assigned a uniform random value in [-0.6 , -0.4]. The starting velocity of the car is always assigned to 0.
 
 ### Episode Termination
 
-The episode terminates at 200 time steps.
+The episode terminates if either of the following happens:
+1. The position of the car is greater than or equal to 0.5 (the goal position on top of the right hill)
+2. The length of the episode is 200.
+
 
 ### Arguments
 
-- `g`: acceleration of gravity measured in *(m s<sup>-2</sup>)* used to calculate the pendulum dynamics. The default value is g = 10.0 .
-
 ```
-gym.make('CartPole-v1', g=9.81)
+gym.make('MountainCar-v0')
 ```
 
 ### Version History
 
-* v1: Simplify the math equations, no difference in behavior.
 * v0: Initial versions release (1.0.0)
+
+
 
 
 
@@ -69,56 +84,66 @@ gym.make('CartPole-v1', g=9.81)
 
 ### Description
 
-This environment corresponds to the version of the cart-pole problem
-described by Barto, Sutton, and Anderson in ["Neuronlike Adaptive Elements That Can Solve Difficult Learning Control Problem"](https://ieeexplore.ieee.org/document/6313077).
-A pole is attached by an un-actuated joint to a cart, which moves along a
-frictionless track. The pendulum is placed upright on the cart and the goal is to balance the pole by applying forces in the left and right direction on the cart.
+The Mountain Car MDP is a deterministic MDP that consists of a car placed stochastically
+at the bottom of a sinusoidal valley, with the only possible actions being the accelerations
+that can be applied to the car in either direction. The goal of the MDP is to strategically
+accelerate the car to reach the goal state on top of the right hill. There are two versions
+of the mountain car domain in gym: one with discrete actions and one with continuous.
+This version is the one with continuous actions.
 
-### Action Space
+This MDP first appeared in [Andrew Moore's PhD Thesis (1990)]("")
 
-The action is a `ndarray` with shape `(1,)` which can take values `{0, 1}` indicating the direction of the fixed force the cart is pushed with.
-
-| Num | Action                 |
-|-----|------------------------|
-| 0   | Push cart to the left  |
-| 1   | Push cart to the right |
-
-**Note**: The velocity that is reduced or increased by the applied force is not fixed and it depends on the angle the pole is pointing. The center of gravity of the pole varies the amount of energy needed to move the cart underneath it
+```
+@TECHREPORT{Moore90efficientmemory-based,
+    author = {Andrew William Moore},
+    title = {Efficient Memory-based Learning for Robot Control},
+    institution = {},
+    year = {1990}
+}
+```
 
 ### Observation Space
 
-The observation is a `ndarray` with shape `(4,)` with the values corresponding to the following positions and velocities:
+The observation is a `ndarray` with shape `(2,)` where the elements correspond to the following:
 
-| Num | Observation           | Min                  | Max                |
-|-----|-----------------------|----------------------|--------------------|
-| 0   | Cart Position         | -4.8                 | 4.8                |
-| 1   | Cart Velocity         | -Inf                 | Inf                |
-| 2   | Pole Angle            | ~ -0.418 rad (-24°)  | ~ 0.418 rad (24°)  |
-| 3   | Pole Angular Velocity | -Inf                 | Inf                |
+| Num | Observation                                                 | Min                | Max    | Unit |
+|-----|-------------------------------------------------------------|--------------------|--------|------|
+| 0   | position of the car along the x-axis                        | -Inf               | Inf    | position (m) |
+| 1   | velocity of the car                                         | -Inf               | Inf  | position (m) |
 
-**Note:** While the ranges above denote the possible values for observation space of each element, it is not reflective of the allowed values of the state space in an unterminated episode. Particularly:
--  The cart x-position (index 0) can be take values between `(-4.8, 4.8)`, but the episode terminates if the cart leaves the `(-2.4, 2.4)` range.
--  The pole angle can be observed between  `(-.418, .418)` radians (or **±24°**), but the episode terminates if the pole angle is not in the range `(-.2095, .2095)` (or **±12°**)
+### Action Space
 
-### Rewards
+The action is a ndarray` with shape `(1,)`, representing the directional force applied on the car. The action is clipped in the range `[-1,1]` and multiplied by a power of 0.0015.
 
-Since the goal is to keep the pole upright for as long as possible, a reward of `+1` for every step taken, including the termination step, is alloted. The threshold for rewards is 475 for v1.
+### Transition Dynamics:
+
+Given an action, the mountain car follows the following transition dynamics:
+
+*velocity<sub>t+1</sub> = velocity<sub>t+1</sub> + force\*self.power - 0.0025\*cos(3 * position<sub>t</sub>)*
+position<sub>t+1</sub> = position<sub>t</sub> + velocity<sub>t+1</sub>
+
+where force is the action clipped to the range `[-1,1]` and power is a constant 0.0015. The collisions at either end are inelastic with the velocity set to 0 upon collision with the wall. The position is clipped to the range [-1.2, 0.6] and velocity is clipped to the range [-0.07, 0.07].
+
+### Reward
+
+A negative reward of *-0.1\*action<sup>2</sup>* is received at each timestep to penalise for taking actions of large magnitude. If the mountain car reaches the goal then a positive reward of +100 is added to the negative reward for that timestep.
 
 ### Starting State
 
-All observations are assigned a uniformly random value in `(-0.05, 0.05)`
+The position of the car is assigned a uniform random value in `[-0.6 , -0.4]`. The starting velocity of the car is always assigned to 0.
 
 ### Episode Termination
 
-The episode terminates if any one of the following occurs:
-1. Pole Angle is greater than ±12°
-2. Cart Position is greater than ±2.4 (center of the cart reaches the edge of the display)
-3. Episode length is greater than 500 (200 for v0)
+The episode terminates if either of the following happens:
+1. The position of the car is greater than or equal to 0.45 (the goal position on top of the right hill)
+2. The length of the episode is 999.
 
 ### Arguments
 
 ```
-gym.make('CartPole-v1')
+gym.make('MountainCarContinuous-v0')
 ```
 
-No additional arguments are currently supported.
+### Version History
+
+* v0: Initial versions release (1.0.0)
