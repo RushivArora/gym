@@ -8,7 +8,7 @@ accelerate the car to reach the goal state on top of the right hill. There are t
 of the mountain car domain in gym: one with discrete actions and one with continuous.
 This version is the one with discrete actions.
 
-This MDP first appeared in [Andrew Moore's PhD Thesis (1990)]("https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-209.pdf")
+This MDP first appeared in [Andrew Moore's PhD Thesis (1990)](https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-209.pdf)
 
 ```
 @TECHREPORT{Moore90efficientmemory-based,
@@ -31,9 +31,6 @@ The observation is a `ndarray` with shape `(2,)` where the elements correspond t
 ### Action Space
 
 There are 3 discrete deterministic actions:
-- 0: Accelerate to the Left
-- 1: Don't accelerate
-- 2: Accelerate to the Right
 
 | Num | Observation                                                 | Value   | Unit |
 |-----|-------------------------------------------------------------|---------|------|
@@ -58,7 +55,7 @@ The goal is to reach the flag placed on top of the right hill as quickly as poss
 
 ### Starting State
 
-The position of the car is assigned a uniform random value in [-0.6 , -0.4]. The starting velocity of the car is always assigned to 0.
+The position of the car is assigned a uniform random value in *[-0.6 , -0.4]*. The starting velocity of the car is always assigned to 0.
 
 ### Episode Termination
 
@@ -92,7 +89,7 @@ accelerate the car to reach the goal state on top of the right hill. There are t
 of the mountain car domain in gym: one with discrete actions and one with continuous.
 This version is the one with continuous actions.
 
-This MDP first appeared in [Andrew Moore's PhD Thesis (1990)]("https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-209.pdf")
+This MDP first appeared in [Andrew Moore's PhD Thesis (1990)](https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-209.pdf)
 
 ```
 @TECHREPORT{Moore90efficientmemory-based,
@@ -114,7 +111,7 @@ The observation is a `ndarray` with shape `(2,)` where the elements correspond t
 
 ### Action Space
 
-The action is a ndarray` with shape `(1,)`, representing the directional force applied on the car. The action is clipped in the range `[-1,1]` and multiplied by a power of 0.0015.
+The action is a `ndarray` with shape `(1,)`, representing the directional force applied on the car. The action is clipped in the range `[-1,1]` and multiplied by a power of 0.0015.
 
 ### Transition Dynamics:
 
