@@ -50,7 +50,7 @@ class CartPoleEnv(gym.Env):
 
     ### Rewards
 
-    Since the goal is to keep the pole upright for as long as possible, a reward of `+1` for every step taken, including the termination step, is alloted. The threshold for rewards is 475 for v1.
+    Since the goal is to keep the pole upright for as long as possible, a reward of `+1` for every step taken, including the termination step, is allotted. The threshold for rewards is 475 for v1.
 
     ### Starting State
 

@@ -61,7 +61,7 @@ class Continuous_MountainCarEnv(gym.Env):
 
     Given an action, the mountain car follows the following transition dynamics:
 
-    *velocity<sub>t+1</sub> = velocity<sub>t+1</sub> + force\*self.power - 0.0025\*cos(3 * position<sub>t</sub>)*
+    *velocity<sub>t+1</sub> = velocity<sub>t+1</sub> + force * self.power - 0.0025 * cos(3 * position<sub>t</sub>)*
 
     *position<sub>t+1</sub> = position<sub>t</sub> + velocity<sub>t+1</sub>*
 
@@ -69,7 +69,7 @@ class Continuous_MountainCarEnv(gym.Env):
 
     ### Reward
 
-    A negative reward of *-0.1\*action<sup>2</sup>* is received at each timestep to penalise for taking actions of large magnitude. If the mountain car reaches the goal then a positive reward of +100 is added to the negative reward for that timestep.
+    A negative reward of *-0.1 * action<sup>2</sup>* is received at each timestep to penalise for taking actions of large magnitude. If the mountain car reaches the goal then a positive reward of +100 is added to the negative reward for that timestep.
 
     ### Starting State
 

@@ -57,7 +57,7 @@ class MountainCarEnv(gym.Env):
 
     Given an action, the mountain car follows the following transition dynamics:
 
-    *velocity<sub>t+1</sub> = velocity<sub>t</sub> + (action - 1)\* force - cos(3\*position<sub>t</sub>)\*gravity*
+    *velocity<sub>t+1</sub> = velocity<sub>t</sub> + (action - 1) * force - cos(3 * position<sub>t</sub>) * gravity*
 
     *position<sub>t+1</sub> = position<sub>t</sub> + velocity<sub>t+1</sub>*
 
