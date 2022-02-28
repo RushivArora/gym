@@ -35,7 +35,7 @@ The observation is a `ndarray` with shape `(3,)` representing the x-y coordinate
 The reward function is defined as:
 
 
-`r = -(theta<sup>2</sup> + 0.1theta_dt<sup>2</sup> + 0.001*torque<sup>2</sup>)`
+r = -(theta<sup>2</sup> + 0.1theta_dt<sup>2</sup> + 0.001*torque<sup>2</sup>)
 
 
 where `$\theta$` is the pendulum's angle normalized between `[-pi, pi]` (with 0 being in the upright position).
@@ -52,7 +52,7 @@ The episode terminates at 200 time steps.
 
 ### Arguments
 
-- `g`: acceleration of gravity measured in `(m s<sup>-2</sup>)` used to calculate the pendulum dynamics. The default value is `g=10.0`.
+- `g`: acceleration of gravity measured in *(m s<sup>-2</sup>)* used to calculate the pendulum dynamics. The default value is g = 10.0 .
 
 ```
 gym.make('CartPole-v1', g=9.81)
