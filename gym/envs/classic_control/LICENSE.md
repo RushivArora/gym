@@ -7,9 +7,9 @@ dynamic equations.
 
 ![Pendulum Coordinate System](./diagrams/pendulum.png)
 
--  $x-y$: cartesian coordinates of the pendulum's end in meters.
-- $\theta$: angle in radians.
-- $\tau$: torque in `N m`. Defined as positive _counter-clockwise_.
+-  $$x-y$$: cartesian coordinates of the pendulum's end in meters.
+- $$\theta$$: angle in radians.
+- $$\tau$$: torque in `N m`. Defined as positive _counter-clockwise_.
 
 ## Action Space
 
@@ -35,7 +35,7 @@ The obseervation is a `ndarray` with shape `(3,)` representing the x-y coordinat
 The reward function is defined as:
 
 
-$$r = -($\theta$<sup>2</sup> + 0.1$\dot\theta$<sup>2</sup> + 0.001*torque^2)$$
+$$r = -(\theta<sup>2</sup> + 0.1\dot\theta<sup>2</sup> + 0.001*torque^2)$$
 
 
 where `$\theta$` is the pendulum's angle normalized between `[-\pi, \pi]` (with 0 being in the upright position).
