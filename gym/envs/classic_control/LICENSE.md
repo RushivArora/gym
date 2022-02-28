@@ -1,4 +1,4 @@
-   ## Description
+   ### Description
 
 The inverted pendulum swingup problem is based on the classic problem in control theory. The system consists of a pendulum attached at one end to a fixed point, and the other end being free. The pendulum starts in a random position and the goal is to apply torque on the free end to swing it into an upright position, with its center of gravity right above the fixed point.
 
@@ -7,11 +7,11 @@ dynamic equations.
 
 ![Pendulum Coordinate System](./diagrams/pendulum.png)
 
--  $$x-y$$: cartesian coordinates of the pendulum's end in meters.
-- $$\theta$$: angle in radians.
-- $$\tau$$: torque in `N m`. Defined as positive _counter-clockwise_.
+-  $$ x-y $$: cartesian coordinates of the pendulum's end in meters.
+- $$ \theta $$: angle in radians.
+- $$ \tau $$: torque in `N m`. Defined as positive _counter-clockwise_.
 
-## Action Space
+### Action Space
 
 The action is a `ndarray` with shape `(1,)` representing the torque applied to free end of the pendulum.
 
@@ -20,7 +20,7 @@ The action is a `ndarray` with shape `(1,)` representing the torque applied to f
 | 0   | Torque | -2.0 | 2.0 |
 
 
-## Observation Space
+### Observation Space
 
 The obseervation is a `ndarray` with shape `(3,)` representing the x-y coordinates of the pendulum's free end and its angular velocity.
 
@@ -30,12 +30,12 @@ The obseervation is a `ndarray` with shape `(3,)` representing the x-y coordinat
 | 1   | y = sin(angle)   | -1.0 | 1.0 |
 | 2   | Angular Velocity | -8.0 | 8.0 |
 
-## Rewards
+### Rewards
 
 The reward function is defined as:
 
 
-$$r = -(\theta<sup>2</sup> + 0.1\dot\theta<sup>2</sup> + 0.001*torque^2)$$
+$$ r = -(\theta <sup>2</sup> + 0.1\dot \theta<sup>2</sup> + 0.001*torque^2^) $$
 
 
 where `$\theta$` is the pendulum's angle normalized between `[-\pi, \pi]` (with 0 being in the upright position).
@@ -43,15 +43,15 @@ Based on the above equation, the minimum reward that can be obtained is `-(pi<su
 0.001*2<sup>2</sup>) = -16.2736044`, while the maximum reward is zero (pendulum is
 upright with zero velocity and no torque applied).
 
-## Starting State
+### Starting State
 
 The starting state is a random angle in `[-\pi, \pi]` and a random angular velocity in `[-1,1]`.
 
-## Episode Termination
+### Episode Termination
 
 The episode terminates at 200 time steps.
 
-## Arguments
+### Arguments
 
 - `g`: acceleration of gravity measured in `(m s<sup>-2</sup>)` used to calculate the pendulum dynamics. The default value is `g=10.0`.
 
@@ -59,7 +59,7 @@ The episode terminates at 200 time steps.
 gym.make('CartPole-v1', g=9.81)
 ```
 
-## Version History
+### Version History
 
 * v1: Simplify the math equations, no difference in behavior.
 * v0: Initial versions release (1.0.0)
@@ -107,13 +107,13 @@ Since the goal is to keep the pole upright for as long as possible, a reward of 
 
 ### Starting State
 
-All observations are assigned a uniformly random value in (-0.05, 0.05)
+All observations are assigned a uniformly random value in `(-0.05, 0.05)`
 
 ### Episode Termination
 
 The episode terminates if any one of the following occurs:
-1. Pole Angle is more than ±12°
-2. Cart Position is more than ±2.4 (center of the cart reaches the edge of the display)
+1. Pole Angle is greater than ±12°
+2. Cart Position is greater than ±2.4 (center of the cart reaches the edge of the display)
 3. Episode length is greater than 500 (200 for v0)
 
 ### Arguments
